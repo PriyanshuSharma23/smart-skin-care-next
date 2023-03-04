@@ -1,13 +1,8 @@
-import { Marcellus, Be_Vietnam_Pro } from "next/font/google";
+import { Marcellus } from "next/font/google";
 import Image from "next/image";
 
 const marcellus = Marcellus({
   weight: "400",
-  subsets: ["latin"],
-});
-
-const beVietnamPro = Be_Vietnam_Pro({
-  weight: "200",
   subsets: ["latin"],
 });
 
