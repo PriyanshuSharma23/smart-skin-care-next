@@ -2,8 +2,8 @@ import { Be_Vietnam_Pro } from "next/font/google";
 import { useState } from "react";
 import CustomRadio from "../../components/CustomRadio";
 
-const beVietnamPro = Be_Vietnam_Pro({
-  weight: "500",
+const vietnam = Be_Vietnam_Pro({
+  weight: "400",
   subsets: ["latin"],
 });
 
@@ -25,7 +25,7 @@ export default function Page() {
   return (
     <div className="flex h-full flex-col p-4">
       <div className="">
-        <h1 className={`text-2xl ${beVietnamPro.className}`}>
+        <h1 className={` text-3xl tracking-wide ${vietnam.className}`}>
           Select Your skin Type
         </h1>
         <div className="flex flex-col gap-2 pt-8">
@@ -35,7 +35,7 @@ export default function Page() {
               className={`flex items-center gap-2 border-b border-gray-400/30 pb-2 pt-4 text-lg ${beVietnamProReg.className}}`}
             >
               <label
-                className={`flex cursor-pointer items-center gap-2  ${
+                className={`flex cursor-pointer items-center gap-2 text-lg ${
                   skinType === skinType ? "text-indigo-900" : "text-gray-400/30"
                 }`}
                 onClick={() => setSelectedSkinType(skinType)}
