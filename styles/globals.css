@@ -12,6 +12,6 @@ body {
 
 @layer components {
   .opacity-btn {
-    @apply active:opacity-20 transition-opacity duration-300;
+    @apply active:opacity-20 transition-opacity duration-75;
   }
 }
