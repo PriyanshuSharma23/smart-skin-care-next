@@ -9,9 +9,9 @@ const accOptions = ["Text to Speech", "Zoom", "Auto-Focus", "Bold Text"];
 
 export default function Home() {
   return (
-    <div className={`py-2`}>
+    <div className={`h-full flex-col py-4 px-2`}>
       <div className="flex-col items-start leading-tight tracking-wide">
-        <h1 className={`text-5xl tracking-wide ${veitnam.className}`}>
+        <h1 className={`px-4 text-5xl tracking-wide ${veitnam.className}`}>
           Accessibility Settings
         </h1>
         <ul className="flex-col p-4 text-2xl">
@@ -39,23 +39,25 @@ export default function Home() {
             </li>
           ))}
         </ul>
-        <div className="flex-col rounded-md border-2 p-4">
-          <p className="text-lg">Select Text Size</p>
-          <div className="flex gap-2 space-x-2 text-center">
-            <div className=" w-full border-2 p-10">A</div>
-            <div className=" w-full border-2 p-10 text-2xl">A</div>
-            <div className=" w-full border-2 p-10 text-4xl">A</div>
+        <div className="px-4">
+          <div className="flex-col rounded-md border-2 p-4">
+            <p className="text-lg">Select Text Size</p>
+            <div className="flex gap-2 space-x-2 text-center">
+              <div className=" w-full border-2 p-10">A</div>
+              <div className=" w-full border-2 p-10 text-2xl">A</div>
+              <div className=" w-full border-2 p-10 text-4xl">A</div>
+            </div>
           </div>
         </div>
       </div>
-      <div className="mt-8 flex w-full gap-2 px-4">
+      <div className="flex-grow"></div>
+      <div className="mt-8 flex w-full gap-4 px-8">
         <button className="opacity-btn flex-grow rounded-md border px-4 py-4 text-lg">
           Skip
         </button>
         <button className="opacity-btn flex-grow rounded-md border bg-black px-4 py-4 text-lg text-white">
           Apply
         </button>
-              
       </div>
     </div>
   );
