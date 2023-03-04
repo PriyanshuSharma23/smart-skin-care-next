@@ -5,6 +5,10 @@ const veitnam = Be_Vietnam_Pro({
   subsets: ["latin"],
 });
 
+
+const accOptions = ["Text to Speech", "Zoom", "Auto-Focus", "Bold Text"];
+
+
 export default function Home() {
   return (
     <div className={`py-2`}>

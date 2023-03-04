@@ -5,8 +5,6 @@ const marcellus = Marcellus({
   subsets: ["latin"],
 });
 
-const accOptions = ["Text to Speech", "Zoom", "Auto-Focus", "Bold Text"];
-
 export default function Home() {
   return (
     <div className={`py-6 px-6`}>
@@ -19,6 +17,6 @@ export default function Home() {
           <p className="ml-2 text-3xl tracking-widest">Companies</p>
         </h1>
       </div>
-      </div>
+    </div>
   );
 }
