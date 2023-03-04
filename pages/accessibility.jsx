@@ -5,9 +5,7 @@ const veitnam = Be_Vietnam_Pro({
   subsets: ["latin"],
 });
 
-
 const accOptions = ["Text to Speech", "Zoom", "Auto-Focus", "Bold Text"];
-
 
 export default function Home() {
   return (
@@ -41,23 +39,24 @@ export default function Home() {
             </li>
           ))}
         </ul>
-        <div className="flex-col border-2 p-4 rounded-md">
+        <div className="flex-col rounded-md border-2 p-4">
           <p className="text-lg">Select Text Size</p>
           <div className="flex gap-2 space-x-2 text-center">
-            <div className=" border-2 w-full p-10">A</div>
-            <div className=" border-2 w-full p-10 text-2xl">A</div>
-            <div className=" border-2 w-full p-10 text-4xl" >A</div>
+            <div className=" w-full border-2 p-10">A</div>
+            <div className=" w-full border-2 p-10 text-2xl">A</div>
+            <div className=" w-full border-2 p-10 text-4xl">A</div>
           </div>
         </div>
       </div>
-      <div className="flex w-full gap-2 px-4 mt-8">
+      <div className="mt-8 flex w-full gap-2 px-4">
         <button className="opacity-btn flex-grow rounded-md border px-4 py-4 text-lg">
           Skip
         </button>
         <button className="opacity-btn flex-grow rounded-md border bg-black px-4 py-4 text-lg text-white">
           Apply
         </button>
-      </div>
+              
+      </div>
     </div>
   );
 }

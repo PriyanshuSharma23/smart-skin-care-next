@@ -13,11 +13,7 @@ const beVietnamPro = Be_Vietnam_Pro({
 
 export default function Home() {
   return (
-<<<<<<< HEAD
-    <div className={`py-6 px-6`}>
-=======
     <div className={`flex h-full flex-col gap-2 py-2`}>
->>>>>>> 722cce9aedbc1afea535f744981120ac4c59af0e
       <div className=" flex items-center leading-tight tracking-wide">
         <h1
           className={`mx-auto text-5xl tracking-wide text-indigo-900 ${marcellus.className}`}
