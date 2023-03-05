@@ -9,7 +9,7 @@ const vietnam = Be_Vietnam_Pro({
 function MyApp({ Component, pageProps }) {
   return (
     <div className={`h-screen bg-gray-200 ${vietnam.className}`}>
-      <main className="relative mx-auto h-full max-w-lg bg-white">
+      <main className="full-height relative mx-auto max-w-lg bg-white">
         <Component {...pageProps} />
       </main>
     </div>
