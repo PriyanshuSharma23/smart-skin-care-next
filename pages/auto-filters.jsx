@@ -1,6 +1,7 @@
 import { Be_Vietnam_Pro } from "next/font/google";
 import Image from "next/image";
 import { useState } from "react";
+import skinTones from "../public/assets/skinTones.jpg";
 
 const vietnam = Be_Vietnam_Pro({
   weight: "400",
@@ -22,14 +23,17 @@ export default function Page() {
     <div className="relative flex h-full flex-col">
       <div className="flex-col items-start leading-tight tracking-wide">
         <div
-          className={`${vietnam.className} relative top-0 left-0 flex h-40 w-full items-center justify-center p-4`}
+          className={`${vietnam.className} relative top-0 left-0 flex h-40 w-full items-center justify-center bg-black p-4`}
         >
           <Image
-            src="https://picsum.photos/600/400"
+            src={skinTones}
+            style={{ objectFit: "cover", opacity: 0.7 }}
             fill="cover"
             alt="skinTones"
           />
-          <h1 className="absolute z-10 text-5xl text-white">Auto Filter</h1>
+          <h1 className="absolute z-10 text-5xl text-white drop-shadow-lg">
+            Auto Filter
+          </h1>
         </div>
         <div className="relative flex-col justify-start py-4 px-6">
           <h2 className="mb-4 text-2xl">Upload Image</h2>
