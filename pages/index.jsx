@@ -1,5 +1,6 @@
 import { Marcellus, Be_Vietnam_Pro } from "next/font/google";
 import Image from "next/image";
+import countryCodes from "../public/country-codes.json";
 
 const marcellus = Marcellus({
   weight: "400",
@@ -13,7 +14,7 @@ const beVietnamPro = Be_Vietnam_Pro({
 
 export default function Home() {
   return (
-    <div className={`flex h-full flex-col gap-2 py-2`}>
+    <div className={`flex h-full flex-col gap-2 pt-2`}>
       <div className=" flex items-center leading-tight tracking-wide">
         <h1
           className={`mx-auto text-5xl tracking-wide text-indigo-900 ${marcellus.className}`}
@@ -40,14 +41,14 @@ export default function Home() {
         </div>
         <div className="relative flex flex-grow flex-col p-4">
           <Image
-            src="https://picsum.photos/400/600"
+            src="https://picsum.photos/300/600"
             fill="cover"
             alt="image 2"
           />
         </div>
         <div className="relative flex flex-grow flex-col rounded-r-lg p-4">
           <Image
-            src="https://picsum.photos/600/800"
+            src="https://picsum.photos/400/800"
             fill="cover"
             alt="image 3"
             className="rounded-r-lg"
@@ -65,9 +66,17 @@ export default function Home() {
               id=""
               className="rounded-md border px-1 py-3 text-lg"
             >
-              <option value="">+91</option>
+              {/* <option value="">+91</option>
               <option value="">+92</option>
-              <option value="">+93</option>
+              <option value="">+93</option> */}
+              {countryCodes.map((countryCode) => (
+                <option
+                  key={countryCode.dial_code}
+                  value={countryCode.dial_code}
+                >
+                  {countryCode.dial_code}
+                </option>
+              ))}
             </select>
             <input
               type="text"
