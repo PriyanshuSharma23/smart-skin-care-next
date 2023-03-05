@@ -36,7 +36,9 @@ export default function Page() {
             >
               <label
                 className={`flex cursor-pointer items-center gap-2 text-lg ${
-                  skinType === skinType ? "text-indigo-900" : "text-gray-400/30"
+                  selectedSkinType === skinType
+                    ? "text-indigo-900"
+                    : "text-gray-500"
                 }`}
                 onClick={() => setSelectedSkinType(skinType)}
               >

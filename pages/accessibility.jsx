@@ -25,7 +25,7 @@ export default function Home() {
                     className="bg-blue-gray-100 peer absolute h-4 w-8 cursor-pointer appearance-none rounded-full bg-gray-100 transition-colors duration-300 checked:bg-black peer-checked:border-black peer-checked:before:bg-black"
                   />
                   <label
-                    for={`switch-${key}`}
+                    htmlFor={`switch-${key}`}
                     className="before:content[''] border-blue-gray-100 before:bg-blue-gray-500 absolute top-2/4 -left-1 h-5 w-5 -translate-y-2/4 cursor-pointer rounded-full border bg-white shadow-md transition-all duration-300 before:absolute before:top-2/4 before:left-2/4 before:block before:h-10 before:w-10 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:opacity-0 before:transition-opacity hover:before:opacity-10 peer-checked:translate-x-full peer-checked:border-black peer-checked:before:bg-black"
                   >
                     <div
