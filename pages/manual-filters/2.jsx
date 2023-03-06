@@ -13,14 +13,6 @@ const beVietnamProReg = Be_Vietnam_Pro({
   subsets: ["latin"],
 });
 
-const skinTypes = [
-  "White",
-  "Asian",
-  "African American",
-  "American Indian or Alaskan Native",
-  "Native Hawaiian or Other Pacific Islander",
-];
-
 const diseases = ["Parkinson", "A.L.S", "Sclerosis", "Arthritis"];
 
 export default function Page() {

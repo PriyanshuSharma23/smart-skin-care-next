@@ -1,6 +1,7 @@
 import { Marcellus, Be_Vietnam_Pro } from "next/font/google";
 import Image from "next/image";
 import countryCodes from "../public/country-codes.json";
+import { useRouter } from "next/router";
 
 const marcellus = Marcellus({
   weight: "400",
@@ -13,8 +14,11 @@ const beVietnamPro = Be_Vietnam_Pro({
 });
 
 export default function Home() {
+  const navigation = useRouter();
+
   return (
-    <div className={`flex h-full flex-col gap-2 pt-2`}>
+    <div className={`flex h-full flex-col gap-2 overflow-scroll pt-2`}>
+      <div className="mt-auto"></div>
       <div className=" flex items-center leading-tight tracking-wide">
         <h1
           className={`mx-auto text-5xl tracking-wide text-indigo-900 ${marcellus.className}`}
@@ -24,11 +28,14 @@ export default function Home() {
           <p className="ml-2 text-3xl tracking-widest">Companies</p>
         </h1>
       </div>
+
+      <div className="mt-auto"></div>
+
       {/* Image Container */}
       <div
-        className="relative flex min-h-[150px] flex-row px-4 sm:min-h-[250px]"
+        className="relative flex max-h-[350px]  min-h-[150px] flex-row px-4 sm:min-h-[250px]"
         style={{
-          flexGrow: 12,
+          flexGrow: 1,
         }}
       >
         <div className="relative flex flex-grow flex-col rounded-l-lg p-4">
@@ -36,7 +43,7 @@ export default function Home() {
             src="https://picsum.photos/200/400"
             fill="cover"
             alt="image 1"
-            className="rounded-l-lg"
+            className="rounded-l-lg object-cover"
           />
         </div>
         <div className="relative flex flex-grow flex-col p-4">
@@ -44,6 +51,7 @@ export default function Home() {
             src="https://picsum.photos/300/600"
             fill="cover"
             alt="image 2"
+            className="object-cover"
           />
         </div>
         <div className="relative flex flex-grow flex-col rounded-r-lg p-4">
@@ -51,10 +59,12 @@ export default function Home() {
             src="https://picsum.photos/400/800"
             fill="cover"
             alt="image 3"
-            className="rounded-r-lg"
+            className="rounded-r-lg object-cover"
           />
         </div>
       </div>
+
+      <div className="mt-auto"></div>
 
       {/* Log in */}
       <div className="flex max-h-[300px] flex-grow flex-col justify-between bg-gray-50 p-4 text-lg shadow">
@@ -64,16 +74,13 @@ export default function Home() {
             <select
               name=""
               id=""
-              className="rounded-md border px-1 py-3 text-lg"
+              className="rounded-md border px-1 py-3 text-lg "
             >
               {/* <option value="">+91</option>
               <option value="">+92</option>
               <option value="">+93</option> */}
-              {countryCodes.map((countryCode) => (
-                <option
-                  key={countryCode.dial_code}
-                  value={countryCode.dial_code}
-                >
+              {countryCodes.map((countryCode, i) => (
+                <option key={i} value={countryCode.dial_code}>
                   {countryCode.dial_code}
                 </option>
               ))}
@@ -86,6 +93,7 @@ export default function Home() {
           </div>
           <button
             className={`opacity-btn bg-black px-4 py-2 font-light text-white ${beVietnamPro.className} mt-2 rounded-md`}
+            onClick={() => navigation.push("/auto-filters")}
           >
             Send OTP
           </button>
