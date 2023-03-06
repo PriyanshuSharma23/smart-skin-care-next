@@ -6,8 +6,8 @@ import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 
-import { cosmetics } from "../components/cosmetics.jsx";
-import { diseaseCosmetics } from "../components/diseaseCosmetics.jsx";
+import { cosmetics } from "../components/products/cosmetics.jsx";
+import { diseaseCosmetics } from "../components/products/diseaseCosmetics.jsx";
 
 const vietnam = Be_Vietnam_Pro({
   weight: "400",
@@ -47,7 +47,7 @@ export default function Page() {
   return (
     <div>
       <div
-        className="-mb-6 flex items-start p-6"
+        className="mb-2 flex h-min min-h-min items-start p-6"
         style={{ justifyContent: "space-between" }}
       >
         <div>
@@ -108,11 +108,21 @@ export default function Page() {
       </div>
 
       {ProductTypes.map((product, key) => (
-        <div className="mt-8 flex-col px-6 font-bold" key={key}>
+        <div className="mb-8 flex-col px-6 font-bold" key={key}>
           <h1 className="text-3xl">{product.name}</h1>
           <div className="mt-4 grid w-full grid-cols-2 gap-2">
             {product.cosmetics.map((cosmetic, index) => (
-              <div key={key} className="h-40 w-full bg-gray-400"></div>
+              <div
+                key={index}
+                className="relative flex-col h-40 w-full items-center justify-center rounded-xl bg-gray-200"
+              >
+                <Image
+                    
+                  style={{ objectFit: "cover" }}
+                  src={cosmetic.image}
+                  alt={cosmetic.name}
+                ></Image>
+              </div>
             ))}
           </div>
         </div>
