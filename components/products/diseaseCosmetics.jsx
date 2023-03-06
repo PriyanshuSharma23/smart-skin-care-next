@@ -1,5 +1,5 @@
 import eyeliner from "../../public/assets/products/eyeliner.png";
-import foundation from "../../public/assets/products/foundation.png";
+import foundation from "../../public/assets/products/Foundation.png";
 import lipstick from "../../public/assets/products/lipstick.png";
 import cream from "../../public/assets/products/concealer.png"
 import powder from "../../public/assets/products/powder.png"
