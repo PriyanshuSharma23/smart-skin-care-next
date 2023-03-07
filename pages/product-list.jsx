@@ -45,6 +45,7 @@ function classNames(...classes) {
 
 export default function Page() {
   const [likedProduct, setLikedProduct] = useState([]);
+  const skinType = "african";
 
   const handleLikeEvent = (index) => {
     if (!likedProduct.includes(index)) {
@@ -186,8 +187,9 @@ export default function Page() {
 
       {/* Concealer */}
       <div className="mb-8 flex-col px-6 font-bold">
-        <h1 className="text-3xl">Conealer</h1>
+        <h1 className="text-3xl">Concealer</h1>
         <div className="mt-4 grid w-full grid-cols-2 gap-4">
+
           {concealerProducts.map((cosmetic, index) => (
             <div
               key={index}
