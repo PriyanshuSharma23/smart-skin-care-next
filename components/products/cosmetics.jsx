@@ -1,48 +1,38 @@
-import eyeliner from "../../public/assets/products/eyeliner.png";
-import foundation from "../../public/assets/products/Foundation.png";
-import lipstick from "../../public/assets/products/lipstick.png";
-import cream from "../../public/assets/products/concealer.png"
-import powder from "../../public/assets/products/powder.png"
+import eyeliner from "../../public/assets/products/cosmetics/eyeliner.png";
+import foundation from "../../public/assets/products/cosmetics/Foundation.png";
+import lipstick from "../../public/assets/products/cosmetics/lipstick.png";
+import cream from "../../public/assets/products/cosmetics/concealer.png";
+import powder from "../../public/assets/products/cosmetics/powder.png";
 
 export const cosmetics = [
-    {
-      id: "cos-1",
-      name: "Foundation",
-      price: "$3",
-      heart: false,
-      image: foundation,
-      description: "very expensive, out of your aukat",
-    },
-    {
-      id: "cos-2",
-      name: "EyeLiner",
-      price: "$6",
-      heart: false,
-      image: eyeliner,
-      description: "ankh phod product",
-    },
-    {
-      id: "cos-3",
-      name: "Lipstick",
-      price: "$9",
-      heart: false,
-      image: lipstick,
-      description: "lagavelu lipstick",
-    },
-    {
-      id: "cos-4",
-      name: "Mirror Powder",
-      price: "$1trillion",
-      heart: false,
-      image: powder,
-      description: "objects in the mirror, appear closer than they actually are",
-    },
-    {
-      id: "cos-5",
-      name: "Cream",
-      price: "$1million",
-      heart: false,
-      image: cream,
-      description: "doratheexplora",
-    },
-  ];
+  {
+    id: "cos-1",
+    name: "Foundation",
+    price: "$8",
+    image: foundation,
+  },
+  {
+    id: "cos-2",
+    name: "EyeLiner",
+    price: "$3",
+    image: eyeliner,
+  },
+  {
+    id: "cos-3",
+    name: "Lipstick",
+    price: "$4",
+    image: lipstick,
+  },
+  {
+    id: "cos-4",
+    name: "Powder case",
+    price: "$6",
+    image: powder,
+  },
+  {
+    id: "cos-5",
+    name: "Cream",
+    price: "$10",
+    image: cream,
+  },
+];
