@@ -1,8 +1,6 @@
 import { Be_Vietnam_Pro } from "next/font/google";
 import Image from "next/image";
 import { useLayoutEffect, useState, useRef, useEffect } from "react";
-import { gsap } from "gsap";
-import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import Show from "../components/Show";
@@ -45,7 +43,7 @@ function classNames(...classes) {
 
 export default function Page() {
   const [likedProduct, setLikedProduct] = useState([]);
-  const skinType = "african";
+  const [skinType, setSkinType] = useState("white");
 
   const handleLikeEvent = (index) => {
     if (!likedProduct.includes(index)) {
@@ -65,10 +63,10 @@ export default function Page() {
           <p className="mb-1 text-gray-500">Skin Type</p>
           <Menu as="div" className="relative z-30 inline-block text-left">
             <div>
-              <Menu.Button className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
+              <Menu.Button className={`${vietnam.className} inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-0 text-lg font-semibold text-gray-900`}>
                 Options
                 <ChevronDownIcon
-                  className="-mr-1 h-5 w-5 text-gray-400"
+                  className="-mr-1 mt-0.5 h-6 w-6 text-gray-900"
                   aria-hidden="true"
                 />
               </Menu.Button>
@@ -77,11 +75,12 @@ export default function Page() {
             <Menu.Items className="absolute left-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
               <div className="py-1">
                 {skinTypes.map((item, key) => (
-                  <Menu.Item key={key}>
+                  <Menu.Item key={key} >
                     {({ active }) => (
                       <a
                         href="#"
                         index={key}
+                        
                         className={classNames(
                           active
                             ? "bg-gray-100 text-gray-900"
@@ -189,7 +188,6 @@ export default function Page() {
       <div className="mb-8 flex-col px-6 font-bold">
         <h1 className="text-3xl">Concealer</h1>
         <div className="mt-4 grid w-full grid-cols-2 gap-4">
-
           {concealerProducts.map((cosmetic, index) => (
             <div
               key={index}
