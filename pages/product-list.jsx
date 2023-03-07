@@ -12,6 +12,8 @@ import { diseaseCosmetics } from "../components/products/diseaseCosmetics.jsx";
 import { concealerProducts } from "../components/products/concealer.jsx";
 import { useFilterStore } from "../stores/filters";
 import Link from "next/link";
+import { useItemStore } from "../stores/items";
+import { useCartStore } from "../stores/cart";
 
 const vietnam = Be_Vietnam_Pro({
   weight: "400",
@@ -46,9 +48,15 @@ function classNames(...classes) {
 }
 
 export default function Page() {
-  const [likedProduct, setLikedProduct] = useState([]);
   const skinType = useFilterStore((state) => state.filters.skinType);
   const setFilterSkinType = useFilterStore((state) => state.setFilterSkinType);
+
+  const plusItem = useCartStore((store) => store.plusItem);
+
+  const items = useItemStore((state) => state.items);
+  const fetchItems = useItemStore((state) => state.fetchItems);
+
+  const [likedProduct, setLikedProduct] = useState([]);
 
   const handleLikeEvent = (index) => {
     if (!likedProduct.includes(index)) {
@@ -57,6 +65,10 @@ export default function Page() {
       setLikedProduct(likedProduct.filter((item) => item !== index));
     }
   };
+
+  useEffect(() => {
+    fetchItems();
+  }, [fetchItems]);
 
   return (
     <div className="h-full overflow-y-scroll">
@@ -133,7 +145,7 @@ export default function Page() {
       </div>
 
       {/* Cosmetic and DiseaseCosmetics */}
-      {ProductTypes.map((product, key) => (
+      {Object.values(items).map((product, key) => (
         <div className="mb-8 flex-col px-6 font-bold" key={key}>
           <h1 className="text-3xl">{product.name}</h1>
           <div className="mt-4 grid w-full grid-cols-2 gap-4">
@@ -141,6 +153,9 @@ export default function Page() {
               <div
                 key={index}
                 className="h-50 relative w-full flex-col items-center justify-center overflow-hidden rounded-xl shadow-md"
+                onClick={() => {
+                  plusItem(cosmetic);
+                }}
               >
                 <Image
                   src={cosmetic.image}
