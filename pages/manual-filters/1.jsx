@@ -1,6 +1,9 @@
 import { Be_Vietnam_Pro } from "next/font/google";
 import { useState } from "react";
 import CustomRadio from "../../components/CustomRadio";
+import { useFilterStore } from "../../stores/filters";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 const vietnam = Be_Vietnam_Pro({
   weight: "400",
@@ -12,16 +15,15 @@ const beVietnamProReg = Be_Vietnam_Pro({
   subsets: ["latin"],
 });
 
-const skinTypes = [
-  "White",
-  "Asian",
-  "African American",
-  "American Indian or Alaskan Native",
-  "Native Hawaiian or Other Pacific Islander",
-];
-
 export default function Page() {
-  const [selectedSkinType, setSelectedSkinType] = useState("White");
+  const skinType = useFilterStore((state) => state.filters.skinType);
+  const skinTypes = useFilterStore((state) => state.skinTypes);
+
+  const setFilterSkinType = useFilterStore((state) => state.setFilterSkinType);
+
+  const navigation = useRouter();
+
+  const [selectedSkinType, setSelectedSkinType] = useState(skinType);
   return (
     <div className="flex h-full flex-col p-4">
       <div className="">
@@ -55,10 +57,19 @@ export default function Page() {
       </div>
       <div className="flex-grow"></div>
       <div className="flex w-full gap-2 px-4">
-        <button className="opacity-btn flex-grow rounded-md border px-4 py-4 text-lg">
+        <Link
+          href="/manual-filters/2"
+          className="opacity-btn flex flex-grow justify-center rounded-md border px-4 py-4 text-lg"
+        >
           Skip
-        </button>
-        <button className="opacity-btn flex-grow rounded-md border bg-black px-4 py-4 text-lg text-white">
+        </Link>
+        <button
+          onClick={() => {
+            setFilterSkinType(selectedSkinType);
+            navigation.push("/manual-filters/2");
+          }}
+          className="opacity-btn flex-grow rounded-md border bg-black px-4 py-4 text-lg text-white"
+        >
           Apply
         </button>
       </div>

@@ -9,6 +9,8 @@ import Link from "next/link";
 import { Loading } from "../components/AutoFilters/Loading";
 import { FinalConfirmation } from "../components/AutoFilters/FinalConfirmation";
 import { ImageSelectionPrompt } from "../components/AutoFilters/ImageSelectionPrompt";
+import { useFilterStore } from "../stores/filters";
+import { useRouter } from "next/router";
 
 const vietnam = Be_Vietnam_Pro({
   weight: "400",
@@ -16,6 +18,10 @@ const vietnam = Be_Vietnam_Pro({
 });
 
 export default function Page() {
+  const setFilters = useFilterStore((state) => state.setFilters);
+
+  const navigation = useRouter();
+
   const [isShown, setIsShown] = useState(false);
   const [isCameraShown, setIsCameraShown] = useState(false);
   const [cameraView, setCameraView] = useState("user");
@@ -27,16 +33,20 @@ export default function Page() {
   const [finalImage, setFinalImage] = useState(null);
 
   const [loading, setLoading] = useState(false);
-  const timerRef = useRef(null);
 
-  const handleClick = (event) => {
-    setIsShown((_) => true);
-  };
+  const timerRef = useRef(null);
+  const popUpRef = useRef(null);
+  const heroRef = useRef(null);
+  const cameraBoxRef = useRef(null);
+  const cameraRef = useRef(null);
+  const dropzoneRef = useRef(null);
 
   const handleUpload = () => {
     if (!finalImage) return;
 
     setLoading(true);
+
+    // TODO: send image to backend
 
     // create delay
     timerRef.current = setTimeout(() => {
@@ -47,14 +57,6 @@ export default function Page() {
       });
     }, 2000);
   };
-
-  const popUpRef = useRef(null);
-  const heroRef = useRef(null);
-  const cameraBoxRef = useRef(null);
-  const cameraRef = useRef(null);
-  const dropzoneRef = useRef(null);
-
-  useEffect(() => {}, []);
 
   useEffect(() => {
     // add outside click
@@ -220,7 +222,9 @@ export default function Page() {
                       <Show
                         when={finalImage}
                         fallback={
-                          <ImageSelectionPrompt handleClick={handleClick} />
+                          <ImageSelectionPrompt
+                            handleClick={setIsShown(true)}
+                          />
                         }
                       >
                         <FinalConfirmation
@@ -392,10 +396,25 @@ export default function Page() {
         </div>
 
         <div className="absolute bottom-4 mt-8 flex w-full gap-2 px-6">
-          <button className="opacity-btn flex-grow rounded-md border px-4 py-4 text-lg">
+          <Link
+            href={"/manual-filters/1"}
+            className="opacity-btn flex flex-grow justify-center rounded-md border px-4 py-4 text-lg"
+            role={"button"}
+          >
             Skip
-          </button>
-          <button className="opacity-btn flex-grow rounded-md border bg-black px-4 py-4 text-lg text-white">
+          </Link>
+          <button
+            onClick={() => {
+              setFilters({
+                skinType: result?.skinType,
+                disease: result?.disease,
+              });
+
+              navigation.push("/product-list");
+            }}
+            className={`opacity-btn flex-grow rounded-md border bg-black px-4 py-4 text-lg text-white disabled:cursor-not-allowed disabled:opacity-50`}
+            disabled={result?.skinType == null || result?.disease == null}
+          >
             Apply
           </button>
         </div>
