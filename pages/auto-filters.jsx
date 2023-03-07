@@ -6,14 +6,12 @@ import { gsap } from "gsap";
 import Webcam from "react-webcam";
 import Show from "../components/Show";
 import Link from "next/link";
+import { Loading } from "../components/AutoFilters/Loading";
+import { FinalConfirmation } from "../components/AutoFilters/FinalConfirmation";
+import { ImageSelectionPrompt } from "../components/AutoFilters/ImageSelectionPrompt";
 
 const vietnam = Be_Vietnam_Pro({
   weight: "400",
-  subsets: ["latin"],
-});
-
-const beVietnamProReg = Be_Vietnam_Pro({
-  weight: "300",
   subsets: ["latin"],
 });
 
@@ -284,6 +282,7 @@ export default function Page() {
                 </Show>
               }
             >
+              {/* Cross */}
               <div className="flex w-full items-center justify-around gap-2">
                 <button
                   className="opacity-btn"
@@ -401,55 +400,12 @@ export default function Page() {
           </button>
         </div>
 
-        <div
-          ref={popUpRef}
-          className="fixed bottom-0 left-1/2 z-50 h-80 w-full max-w-md -translate-x-1/2 flex-col items-center justify-center rounded-lg bg-white p-8 text-center shadow-2xl"
-        >
-          <p className="mb-4 text-lg">Choose files for upload</p>
-          <button
-            onClick={() => {
-              setIsCameraShown(true);
-              setIsShown(false);
-            }}
-            className="mb-6 flex h-1/3 w-full items-center justify-center gap-4 rounded-lg bg-gray-200 text-lg outline-dashed outline-gray-300"
-          >
-            <svg viewBox="0 0 512 512" width="40px">
-              <path d="M220.6 121.2L271.1 96 448 96v96H333.2c-21.9-15.1-48.5-24-77.2-24s-55.2 8.9-77.2 24H64V128H192c9.9 0 19.7-2.3 28.6-6.8zM0 128V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H271.1c-9.9 0-19.7 2.3-28.6 6.8L192 64H160V48c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16l0 16C28.7 64 0 92.7 0 128zM168 304a88 88 0 1 1 176 0 88 88 0 1 1 -176 0z" />
-            </svg>
-            <p>Camera</p>
-          </button>
-          <label
-            htmlFor="file-input"
-            className="flex h-1/3 w-full items-center justify-center gap-4 rounded-lg bg-gray-200 text-lg outline-dashed outline-gray-300"
-          >
-            <svg viewBox="0 0 512 512" width="40px">
-              <path d="M448 480H64c-35.3 0-64-28.7-64-64V192H512V416c0 35.3-28.7 64-64 64zm64-320H0V96C0 60.7 28.7 32 64 32H192c20.1 0 39.1 9.5 51.2 25.6l19.2 25.6c6 8.1 15.5 12.8 25.6 12.8H448c35.3 0 64 28.7 64 64z" />
-            </svg>
-            <p>Storage</p>
-            {/* hidden file input element */}
-            <input
-              id="file-input"
-              type="file"
-              className="hidden"
-              onChange={(e) => {
-                const file = e.target.files[0];
-                if (file) {
-                  const reader = new FileReader();
-                  reader.onload = (e) => {
-                    // check if file is image
-                    if (file.type.split("/")[0] !== "image") {
-                      alert("Please select an image file");
-                      return;
-                    }
-                    setFinalImage(e.target.result);
-                    setIsShown(false);
-                  };
-                  reader.readAsDataURL(file);
-                }
-              }}
-            />
-          </label>
-        </div>
+        <Modal
+          popUpRef={popUpRef}
+          setIsShown={setIsShown}
+          setIsCameraShown={setIsCameraShown}
+          setFinalImage={setFinalImage}
+        />
       </div>
 
       <Show when={dragging}>
@@ -474,21 +430,11 @@ export default function Page() {
             e.preventDefault();
             e.stopPropagation();
 
-            console.log(e.dataTransfer.files);
-
-            const files = e.dataTransfer.files;
-            if (files.length > 0) {
-              const file = files[0];
-              console.log(file);
-              if (!file.type.startsWith("image/")) {
-                return;
+            const file = handleFileInput(e, (file) => {
+              if (file) {
+                setFinalImage(file);
               }
-              const reader = new FileReader();
-              reader.onload = (e) => {
-                setFinalImage(e.target.result);
-              };
-              reader.readAsDataURL(file);
-            }
+            });
 
             setDragging(false);
           }}
@@ -506,77 +452,70 @@ export default function Page() {
   );
 }
 
-function ImageSelectionPrompt({ handleClick }) {
+function Modal({ popUpRef, setIsShown, setIsCameraShown, setFinalImage }) {
   return (
-    <div className="p-12">
-      <p className="mb-4 text-2xl">Drop files to upload</p>
-      <p className="text-1xl mb-4">or</p>
+    <div
+      ref={popUpRef}
+      className="fixed bottom-0 left-1/2 z-50 h-80 w-full max-w-md -translate-x-1/2 flex-col items-center justify-center rounded-lg bg-white p-8 text-center shadow-2xl"
+    >
+      <p className="mb-4 text-lg">Choose files for upload</p>
       <button
-        className="opacity-btn flex-grow rounded-md border bg-black px-3 py-2 text-lg text-white"
-        onClick={handleClick}
+        onClick={() => {
+          setIsCameraShown(true);
+          setIsShown(false);
+        }}
+        className="mb-6 flex h-1/3 w-full items-center justify-center gap-4 rounded-lg bg-gray-200 text-lg outline-dashed outline-gray-300"
       >
-        Select Files
+        <svg viewBox="0 0 512 512" width="40px">
+          <path d="M220.6 121.2L271.1 96 448 96v96H333.2c-21.9-15.1-48.5-24-77.2-24s-55.2 8.9-77.2 24H64V128H192c9.9 0 19.7-2.3 28.6-6.8zM0 128V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V96c0-35.3-28.7-64-64-64H271.1c-9.9 0-19.7 2.3-28.6 6.8L192 64H160V48c0-8.8-7.2-16-16-16H80c-8.8 0-16 7.2-16 16l0 16C28.7 64 0 92.7 0 128zM168 304a88 88 0 1 1 176 0 88 88 0 1 1 -176 0z" />
+        </svg>
+        <p>Camera</p>
       </button>
-    </div>
-  );
-}
-
-function FinalConfirmation({ finalImage, setFinalImage, handleUpload }) {
-  return (
-    <div className="relative h-full w-full ">
-      <Image
-        src={finalImage}
-        fill="cover"
-        alt="pic"
-        className="fixed top-0 left-0 z-10 h-full w-full rounded-md object-cover "
-      />
-      <div className="absolute top-0 left-0 z-20 h-full w-full rounded-md bg-black bg-opacity-50"></div>
-
-      <div className="absolute bottom-0 left-1/2 z-30 flex -translate-x-1/2 gap-2 pb-2">
-        <button
-          className="opacity-btn rounded-md border bg-black px-3 py-2 text-lg text-white"
-          onClick={() => {
-            setFinalImage(null);
+      <label
+        htmlFor="file-input"
+        className="flex h-1/3 w-full items-center justify-center gap-4 rounded-lg bg-gray-200 text-lg outline-dashed outline-gray-300"
+      >
+        <svg viewBox="0 0 512 512" width="40px">
+          <path d="M448 480H64c-35.3 0-64-28.7-64-64V192H512V416c0 35.3-28.7 64-64 64zm64-320H0V96C0 60.7 28.7 32 64 32H192c20.1 0 39.1 9.5 51.2 25.6l19.2 25.6c6 8.1 15.5 12.8 25.6 12.8H448c35.3 0 64 28.7 64 64z" />
+        </svg>
+        <p>Storage</p>
+        {/* hidden file input element */}
+        <input
+          id="file-input"
+          type="file"
+          className="hidden"
+          onChange={(e) => {
+            // console.log(e.target.files.length);
+            const file = handleFileInput(e, (file) => {
+              if (file) {
+                setFinalImage(file);
+                setIsShown(false);
+              }
+            });
           }}
-        >
-          Clear
-        </button>
-
-        <button
-          className="opacity-btn rounded-md border bg-black px-3 py-2 text-lg text-white"
-          onClick={() => {
-            handleUpload();
-          }}
-        >
-          Upload
-        </button>
-      </div>
+        />
+      </label>
     </div>
   );
 }
 
-function Loading({ finalImage }) {
-  return (
-    <div className="absolute top-0 left-0 z-20 h-full w-full rounded-md">
-      <Image
-        src={finalImage}
-        fill="cover"
-        alt="pic"
-        className="fixed top-0 left-0 z-10 h-full w-full rounded-md object-cover "
-      />
-      <div className="absolute top-0 left-0 z-20 h-full w-full rounded-md bg-black bg-opacity-50"></div>
-      <div className="absolute top-1/2 left-1/2 z-30 flex -translate-x-1/2 -translate-y-1/2 gap-2">
-        <div className="flex items-center justify-center">
-          <div
-            className="inline-block  h-8 w-8 animate-spin rounded-full border-4 border-solid border-white border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
-            role="status"
-          >
-            <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]">
-              Loading...
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
+const handleFileInput = (e, action) => {
+  if (e.target.files.length === 0) {
+    return null;
+  }
+  const file = e.target.files[0];
+  if (file) {
+    console.log(file);
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      // check if file is image
+      if (file.type.split("/")[0] !== "image") {
+        alert("Please select an image file");
+        return null;
+      }
+
+      action && action(e.target.result);
+    };
+    reader.readAsDataURL(file);
+  }
+};
