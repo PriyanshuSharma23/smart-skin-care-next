@@ -11,7 +11,7 @@ export const useCartStore = create((set) => ({
       } else {
         cart[index].quantity += 1;
       }
-      return { cart };
+      return { cart: [...cart] };
     });
   },
 
@@ -24,10 +24,33 @@ export const useCartStore = create((set) => ({
       } else {
         if (cart[index].quantity === 1) {
           cart.splice(index, 1);
+        } else {
+          cart[index].quantity -= 1;
         }
-        cart[index].quantity -= 1;
       }
-      return { cart };
+      return { cart: [...cart] };
+    });
+  },
+
+  removeItem: (item) => {
+    set((state) => {
+      const cart = state.cart;
+      const index = cart.findIndex((i) => i.id === item.id);
+      if (index !== -1) {
+        cart.splice(index, 1);
+      }
+      return { cart: [...cart] };
+    });
+  },
+
+  addItemOnce: (item) => {
+    set((state) => {
+      const cart = state.cart;
+      const index = cart.findIndex((i) => i.id === item.id);
+      if (index === -1) {
+        cart.push({ ...item, quantity: 1 });
+      }
+      return { cart: [...cart] };
     });
   },
 }));

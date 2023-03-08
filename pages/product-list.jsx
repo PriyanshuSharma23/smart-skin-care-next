@@ -49,15 +49,15 @@ export default function Page() {
   const skinType = useFilterStore((state) => state.filters.skinType);
   const setFilterSkinType = useFilterStore((state) => state.setFilterSkinType);
 
-  const plusItem = useCartStore((store) => store.plusItem);
+  const cart = useCartStore((state) => state.cart);
+  const addItemOnce = useCartStore((store) => store.addItemOnce);
+  const removeItem = useCartStore((store) => store.removeItem);
+  // const isInCart = useCartStore((store) => store.isInCart);
 
   const items = useItemStore((state) => state.items);
   const fetchItems = useItemStore((state) => state.fetchItems);
 
   const [likedProduct, setLikedProduct] = useState([]);
-
-
-
 
   const handleLikeEvent = (index) => {
     if (!likedProduct.includes(index)) {
@@ -93,11 +93,10 @@ export default function Page() {
             <Menu.Items className="absolute left-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
               <div className="py-1">
                 {skinTypes.map((item, key) => (
-                  <Menu.Item key={key} >
+                  <Menu.Item key={key}>
                     {({ active }) => (
                       <button
                         index={key}
-                        
                         className={classNames(
                           active
                             ? "bg-gray-100 text-gray-900"
@@ -130,19 +129,32 @@ export default function Page() {
             </svg>
           </Link>
           {/* cart */}
-          <svg
-            stroke="currentColor"
-            fill="none"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="w-7 cursor-pointer"
-          >
-            <circle cx="9" cy="21" r="1"></circle>
-            <circle cx="20" cy="21" r="1"></circle>
-            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-          </svg>
+          <Link href={"/cart"}>
+            <div className="relative">
+              <Show when={cart.length > 0}>
+                <span
+                  className="
+                absolute -top-2 -right-2 flex h-6 w-6 items-center justify-center rounded-full bg-cyan-800 p-1 text-white
+                "
+                >
+                  {cart.length}
+                </span>
+              </Show>
+              <svg
+                stroke="currentColor"
+                fill="none"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="w-7 cursor-pointer"
+              >
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+              </svg>
+            </div>
+          </Link>
         </div>
       </div>
 
@@ -156,7 +168,13 @@ export default function Page() {
                 key={index}
                 className="h-50 relative w-full flex-col items-center justify-center overflow-hidden rounded-xl shadow-md"
                 onClick={() => {
-                  plusItem(cosmetic);
+                  if (
+                    cart.findIndex((item) => item.id === cosmetic.id) !== -1
+                  ) {
+                    removeItem(cosmetic);
+                  } else {
+                    addItemOnce(cosmetic);
+                  }
                 }}
               >
                 <Image
@@ -176,7 +194,7 @@ export default function Page() {
                         : "currentColor"
                     }
                     width={likedProduct.includes(cosmetic.id) ? "28px" : "20px"}
-                    stroke-width="0"
+                    strokeWidth="0"
                     viewBox="0 0 1024 1024"
                     className="transition-all"
                   >
@@ -195,6 +213,22 @@ export default function Page() {
                     {cosmetic.name}
                   </p>
                 </div>
+
+                <Show
+                  when={
+                    cart.findIndex((item) => item.id === cosmetic.id) !== -1
+                  }
+                >
+                  <div className="absolute inset-0  flex items-center justify-between bg-cyan-400/70">
+                    <p
+                      className={`
+                      mx-auto text-2xl text-white
+                    `}
+                    >
+                      Added
+                    </p>
+                  </div>
+                </Show>
               </div>
             ))}
           </div>
@@ -225,7 +259,7 @@ export default function Page() {
                     likedProduct.includes(cosmetic.id) ? "red" : "currentColor"
                   }
                   width={likedProduct.includes(cosmetic.id) ? "28px" : "20px"}
-                  stroke-width="0"
+                  strokeWidth="0"
                   viewBox="0 0 1024 1024"
                   className="transition-all"
                 >
