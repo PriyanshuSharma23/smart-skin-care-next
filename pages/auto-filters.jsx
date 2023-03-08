@@ -92,7 +92,7 @@ export default function Page() {
           ease: "power4.out",
         });
       }
-    });
+    }, [popUpRef]);
 
     return () => {
       ctx.revert();
@@ -100,21 +100,27 @@ export default function Page() {
   }, [isShown]);
 
   useLayoutEffect(() => {
-    if (isCameraShown) {
-      gsap.to(heroRef.current, {
-        duration: 0.5,
-        y: "-100%",
-        height: "0rem",
-        ease: "power4.out",
-      });
-    } else {
-      gsap.to(heroRef.current, {
-        duration: 0.5,
-        height: "10rem",
-        y: "0%",
-        ease: "power4.out",
-      });
-    }
+    let ctx = gsap.context(() => {
+      if (isCameraShown) {
+        gsap.to(heroRef.current, {
+          duration: 0.5,
+          y: "-100%",
+          height: "0rem",
+          ease: "power4.out",
+        });
+      } else {
+        gsap.to(heroRef.current, {
+          duration: 0.5,
+          height: "10rem",
+          y: "0%",
+          ease: "power4.out",
+        });
+      }
+    }, [heroRef]);
+
+    return () => {
+      ctx.revert();
+    };
   }, [isCameraShown]);
 
   useEffect(() => {
