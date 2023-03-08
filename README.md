@@ -1,8 +1,18 @@
+Website live at 🔗 [https://smart-skin-care-next.vercel.app/](https://smart-skin-care-next.vercel.app/)
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 
-First, run the development server:
+First, install the dependencies:
+
+```bash
+npm install
+# or
+yarn
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
@@ -12,23 +22,29 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## Configuration
+> We have used tailwindcss for styling. This way we achieve a consistent look and feel across the app. You can configure the tailwindcss by editing the `tailwind.config.js` file.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+> We have used zustand for state management. You can configure the zustand by editing javascript files in `/stores` folder.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+> We have attached ```TODO: ``` comments in the code where you need to make calls to the backend or where we have used mock data.
+>>1. In ```stores/filters.js```, We have a global state for filters. You can use this state to store the filters selected by the user and we have added to methods where you can add data to skin types and diseases from the backend.
+>>2. In ```pages/auto-filters.jsx```, We made an upload image method where you can make a call to the backend to get the filters for the image uploaded by the user. We have used mock data for now.
+>>3. In ```stores/items.js```, We have a global state for items. You can use this state to store the items returned by the backend and we have added to methods where you can add data to items from the backend.
 
-## Learn More
+ The code is easy to understand and you can easily modify the code. If you have any questions, please feel free to contact us.
 
-To learn more about Next.js, take a look at the following resources:
+ ## Unique Features
+ 1. Added a cart page where the user can see the items added to the cart.
+ 2. Added heart icon on the product card which can be used to add the product to the wishlist.
+ 3. Added 3 modes to upload file in auto-filters page. User can upload image from the computer, take a photo using camera or drop the image directly.
+ 4. Consistent look and feel across all devices.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Packages Used
+1. @headlessui/react [https://www.npmjs.com/package/@headlessui/react](https://www.npmjs.com/package/@headlessui/react)
+2. @heroicons/react [https://www.npmjs.com/package/@heroicons/react](https://www.npmjs.com/package/@heroicons/react)
+3. gsap [https://www.npmjs.com/package/gsap](https://www.npmjs.com/package/gsap)
+4. react-webcam [https://www.npmjs.com/package/react-webcam](https://www.npmjs.com/package/react-webcam)
+5. sharp [https://www.npmjs.com/package/sharp](https://www.npmjs.com/package/sharp)
+6. zustand [https://www.npmjs.com/package/zustand](https://www.npmjs.com/package/zustand)
+7. tailwindcss [https://www.npmjs.com/package/tailwindcss](https://www.npmjs.com/package/tailwindcss)

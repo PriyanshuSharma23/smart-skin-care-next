@@ -455,12 +455,21 @@ export default function Page() {
             e.preventDefault();
             e.stopPropagation();
 
-            const file = handleFileInput(e, (file) => {
-              if (file) {
-                setFinalImage(file);
-              }
-            });
+            const files = e.dataTransfer.files;
 
+            if (files.length > 0) {
+              const file = files[0];
+
+              if (file.type.startsWith("image/")) {
+                const reader = new FileReader();
+
+                reader.onload = (e) => {
+                  setFinalImage(e.target.result);
+                };
+
+                reader.readAsDataURL(file);
+              }
+            }
             setDragging(false);
           }}
         >
@@ -525,9 +534,10 @@ function Modal({ popUpRef, setIsShown, setIsCameraShown, setFinalImage }) {
 }
 
 const handleFileInput = (e, action) => {
-  if (e.target.files.length === 0) {
+  if (e?.target?.files?.length === 0) {
     return null;
   }
+  console.log(e);
   const file = e.target.files[0];
   if (file) {
     console.log(file);
