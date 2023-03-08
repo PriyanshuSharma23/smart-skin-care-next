@@ -23,4 +23,8 @@ export const useFilterStore = create((set) => ({
 
   setDiseases: (diseases) => set((state) => ({ ...state, diseases })),
   setSkinTypes: (skinTypes) => set((state) => ({ ...state, skinTypes })),
+
+  // TODO: add calls to backend
+  fetchDiseases: async () => {},
+  fetchSkinTypes: async () => {},
 }));

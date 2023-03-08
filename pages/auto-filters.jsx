@@ -78,35 +78,17 @@ export default function Page() {
   }, []);
 
   useLayoutEffect(() => {
-    if (isShown) {
-      gsap.to(popUpRef.current, {
-        duration: 0.5,
-        y: "0%",
-        ease: "power4.out",
-      });
-    } else {
-      gsap.to(popUpRef.current, {
-        duration: 0.5,
-        y: "100%",
-        ease: "power4.out",
-      });
-    }
-  }, [isShown]);
-
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      if (isCameraShown) {
-        gsap.to(heroRef.current, {
+    let ctx = gsap.context(() => {
+      if (isShown) {
+        gsap.to(popUpRef.current, {
           duration: 0.5,
-          y: "-100%",
-          height: "0rem",
+          y: "0%",
           ease: "power4.out",
         });
       } else {
-        gsap.to(heroRef.current, {
+        gsap.to(popUpRef.current, {
           duration: 0.5,
-          height: "10rem",
-          y: "0%",
+          y: "100%",
           ease: "power4.out",
         });
       }
@@ -115,6 +97,24 @@ export default function Page() {
     return () => {
       ctx.revert();
     };
+  }, [isShown]);
+
+  useLayoutEffect(() => {
+    if (isCameraShown) {
+      gsap.to(heroRef.current, {
+        duration: 0.5,
+        y: "-100%",
+        height: "0rem",
+        ease: "power4.out",
+      });
+    } else {
+      gsap.to(heroRef.current, {
+        duration: 0.5,
+        height: "10rem",
+        y: "0%",
+        ease: "power4.out",
+      });
+    }
   }, [isCameraShown]);
 
   useEffect(() => {
@@ -223,7 +223,7 @@ export default function Page() {
                         when={finalImage}
                         fallback={
                           <ImageSelectionPrompt
-                            handleClick={setIsShown(true)}
+                            handleClick={() => setIsShown(true)}
                           />
                         }
                       >

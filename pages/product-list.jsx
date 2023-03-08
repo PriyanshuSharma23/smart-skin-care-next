@@ -8,6 +8,10 @@ import Show from "../components/Show";
 import { cosmetics } from "../components/products/cosmetics.jsx";
 import { diseaseCosmetics } from "../components/products/diseaseCosmetics.jsx";
 import { concealerProducts } from "../components/products/concealer.jsx";
+import { useFilterStore } from "../stores/filters";
+import Link from "next/link";
+import { useItemStore } from "../stores/items";
+import { useCartStore } from "../stores/cart";
 
 const vietnam = Be_Vietnam_Pro({
   weight: "400",
@@ -42,8 +46,18 @@ function classNames(...classes) {
 }
 
 export default function Page() {
+  const skinType = useFilterStore((state) => state.filters.skinType);
+  const setFilterSkinType = useFilterStore((state) => state.setFilterSkinType);
+
+  const plusItem = useCartStore((store) => store.plusItem);
+
+  const items = useItemStore((state) => state.items);
+  const fetchItems = useItemStore((state) => state.fetchItems);
+
   const [likedProduct, setLikedProduct] = useState([]);
-  const [skinType, setSkinType] = useState("white");
+
+
+
 
   const handleLikeEvent = (index) => {
     if (!likedProduct.includes(index)) {
@@ -53,6 +67,10 @@ export default function Page() {
     }
   };
 
+  useEffect(() => {
+    fetchItems();
+  }, [fetchItems]);
+
   return (
     <div className="h-full overflow-y-scroll">
       <div
@@ -60,13 +78,13 @@ export default function Page() {
         style={{ justifyContent: "space-between" }}
       >
         <div>
-          <p className="mb-1 text-gray-500">Skin Type</p>
+          <p className="mb-1 text-sm text-gray-500">Skin Type</p>
           <Menu as="div" className="relative z-30 inline-block text-left">
             <div>
-              <Menu.Button className={`${vietnam.className} inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-0 text-lg font-semibold text-gray-900`}>
-                Options
+              <Menu.Button className="text-md inline-flex w-full max-w-[190px] items-center justify-center gap-x-1.5 rounded-md text-left font-semibold text-gray-900 hover:bg-gray-50">
+                {skinType || "Select your skin type"}
                 <ChevronDownIcon
-                  className="-mr-1 mt-0.5 h-6 w-6 text-gray-900"
+                  className="-mr-1 h-5 w-5 text-black"
                   aria-hidden="true"
                 />
               </Menu.Button>
@@ -77,19 +95,19 @@ export default function Page() {
                 {skinTypes.map((item, key) => (
                   <Menu.Item key={key} >
                     {({ active }) => (
-                      <a
-                        href="#"
+                      <button
                         index={key}
                         
                         className={classNames(
                           active
                             ? "bg-gray-100 text-gray-900"
                             : "text-gray-700",
-                          "block px-4 py-2 text-sm"
+                          "block w-full px-4 py-2 text-sm"
                         )}
+                        onClick={() => setFilterSkinType(item)}
                       >
                         {item}
-                      </a>
+                      </button>
                     )}
                   </Menu.Item>
                 ))}
@@ -98,15 +116,20 @@ export default function Page() {
           </Menu>
         </div>
         <div className="mt-2 flex gap-8">
-          <svg
-            stroke="currentColor"
-            fill="currentColor"
-            strokeWidth="0"
-            viewBox="0 0 24 24"
-            className="w-7 cursor-pointer"
-          >
-            <path d="M7 11h10v2H7zM4 7h16v2H4zm6 8h4v2h-4z"></path>
-          </svg>
+          {/* filter */}
+
+          <Link href={"/auto-filters"}>
+            <svg
+              stroke="currentColor"
+              fill="currentColor"
+              strokeWidth="0"
+              viewBox="0 0 24 24"
+              className="w-7 cursor-pointer"
+            >
+              <path d="M7 11h10v2H7zM4 7h16v2H4zm6 8h4v2h-4z"></path>
+            </svg>
+          </Link>
+          {/* cart */}
           <svg
             stroke="currentColor"
             fill="none"
@@ -124,23 +147,17 @@ export default function Page() {
       </div>
 
       {/* Cosmetic and DiseaseCosmetics */}
-      {ProductTypes.map((product, key) => (
+      {Object.values(items).map((product, key) => (
         <div className="mb-8 flex-col px-6 font-bold" key={key}>
           <h1 className="text-3xl">{product.name}</h1>
           <div className="mt-4 grid w-full grid-cols-2 gap-4">
             {product.cosmetics.map((cosmetic, index) => (
-              //  <Show
-              //   when={}
-              //    fallback={when false}
-              //   >
-
-              //   {when true}
-
-              //   </Show>
-
               <div
                 key={index}
                 className="h-50 relative w-full flex-col items-center justify-center overflow-hidden rounded-xl shadow-md"
+                onClick={() => {
+                  plusItem(cosmetic);
+                }}
               >
                 <Image
                   src={cosmetic.image}
