@@ -1,8 +1,6 @@
 import { Be_Vietnam_Pro } from "next/font/google";
 import Image from "next/image";
 import { useLayoutEffect, useState, useRef, useEffect } from "react";
-import { gsap } from "gsap";
-import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import Show from "../components/Show";
@@ -58,6 +56,9 @@ export default function Page() {
 
   const [likedProduct, setLikedProduct] = useState([]);
 
+
+
+
   const handleLikeEvent = (index) => {
     if (!likedProduct.includes(index)) {
       setLikedProduct(likedProduct.concat(index));
@@ -92,10 +93,11 @@ export default function Page() {
             <Menu.Items className="absolute left-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
               <div className="py-1">
                 {skinTypes.map((item, key) => (
-                  <Menu.Item key={key}>
+                  <Menu.Item key={key} >
                     {({ active }) => (
                       <button
                         index={key}
+                        
                         className={classNames(
                           active
                             ? "bg-gray-100 text-gray-900"
