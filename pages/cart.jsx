@@ -10,7 +10,6 @@ const vietnam = Be_Vietnam_Pro({
 });
 
 export default function Page() {
-
   return (
     <div className="h-full flex-col items-start justify-start p-6">
       <button className="flex h-10 w-10 items-center justify-center rounded-2xl bg-black active:scale-95">
@@ -54,10 +53,11 @@ export default function Page() {
       </div>
       <div>
         <h1 className={`${vietnam.className} mt-4 text-4xl`}>Order Now</h1>
-        <p className="text-md text-gray-600">
-          Total :
-          
-        </p>
+        <p className="text-md text-gray-600">Total :</p>
+        <p className="text-md text-gray-600">Price :</p>
+        <button className="opacity-btn flex-grow rounded-xl bg-black text-white border px-4 py-2 text-lg mt-2">
+          Checkout
+        </button>
       </div>
     </div>
   );
