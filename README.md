@@ -1,4 +1,5 @@
-Website live at 🔗 [https://smart-skin-care-next.vercel.app/](https://smart-skin-care-next.vercel.app/)
+### Website live at 🔗 [https://smart-skin-care-next.vercel.app/](https://smart-skin-care-next.vercel.app/)
+### Demonstration on loom 🔗 [https://www.loom.com/share/6068f45e0f4d4fb689b077829ea1a359](https://www.loom.com/share/6068f45e0f4d4fb689b077829ea1a359)
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
